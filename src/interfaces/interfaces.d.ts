@@ -27,7 +27,7 @@ interface IDefinition {
 
 interface IAnswer {
     type: string,
-    text: string,
+    text?: string,
     date?: string,
     file_url?: string,
     phone_number?: string,

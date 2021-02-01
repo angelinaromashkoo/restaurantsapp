@@ -2,11 +2,12 @@ import React, { FC, memo } from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, FlatList} from 'react-native';
 import { StackNavigationProp} from "@react-navigation/stack";
 import {ApplicationStackParamList, AppScreens} from "../navigators/stackFlowNavigator";
+import {IFormResponse} from "../interfaces/interfaces";
 
 type ApplicantsListScreenNavigationProps = StackNavigationProp<ApplicationStackParamList, AppScreens.Applicants>;
 
 export type ApplicantsParams = {
-    applicants: any[];
+    applicants: IFormResponse[];
 }
 
 interface IProps {
@@ -19,14 +20,20 @@ export const ApplicantsList: FC<IProps> = memo((props) => {
     const { params } = route;
     const { applicants } = params;
 
-    const renderItem = (item: any) => {
-        return <TouchableOpacity>
+    const applicantsCount = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
+
+    const renderItem = ({item, index}: {item: IFormResponse, index: number}) => {
+
+        return <TouchableOpacity onPress={() => navigation.navigate(AppScreens.Details, {
+            definitions: item.definition, answers: item.answers
+        })}>
             <View>
-                <Text>{item.index + 1} Applicant</Text>
+                <Text>{applicantsCount[index]} applicant</Text>
             </View>
         </TouchableOpacity>
     }
 
+    console.log(applicants)
 
     return (
         <View style={styles.container}>
@@ -35,7 +42,7 @@ export const ApplicantsList: FC<IProps> = memo((props) => {
                 <FlatList
                     data={applicants}
                     renderItem={renderItem}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item.form_id}
                 />
             </View>
         </View>

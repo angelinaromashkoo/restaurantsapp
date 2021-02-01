@@ -1,15 +1,18 @@
 import React, { FC, memo } from 'react';
-import { View, StyleSheet, Text, Pressable, FlatList, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, FlatList, TouchableOpacity } from 'react-native';
 import { StackNavigationProp} from "@react-navigation/stack";
 import {ApplicationStackParamList, AppScreens} from "../navigators/stackFlowNavigator";
-import {restaurantsData} from "../data/restaurantsModel";
+import {Restaurants} from "../data/restaurantsModel";
+import {IResultData} from "../interfaces/interfaces";
 
 interface IProps {
     navigation: StackNavigationProp<ApplicationStackParamList, AppScreens.Restaurants>
 }
 
 export const RestaurantsList: FC<IProps> = memo(({navigation}) => {
-    const renderItem = ({item}: any) => {
+    const data = new Restaurants();
+
+    const renderItem = ({item}: {item: IResultData}) => {
         return <TouchableOpacity onPress={() => navigation.navigate(AppScreens.Applicants, {applicants: item.applicants})}>
             <View>
                 <Text>{item.label}</Text>
@@ -23,7 +26,7 @@ export const RestaurantsList: FC<IProps> = memo(({navigation}) => {
             <Text>First Screen</Text>
             <View style={{flex: 1}}>
             <FlatList
-                data={restaurantsData()}
+                data={data.convertData}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
             />
