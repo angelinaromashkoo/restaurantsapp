@@ -40,7 +40,7 @@ export const ApplicantsList: FC<IProps> = memo((props) => {
                 <FlatList
                     data={applicants}
                     renderItem={renderItem}
-                    keyExtractor={(item) => item.form_id}
+                    keyExtractor={(item, index) => index.toString()}
                 />
             </View>
         </View>

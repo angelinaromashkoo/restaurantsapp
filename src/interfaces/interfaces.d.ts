@@ -8,7 +8,7 @@ interface IChoices {
     label: string,
 }
 
-interface IFields {
+export interface IFields {
     id: string,
     title: string,
     type: string,
