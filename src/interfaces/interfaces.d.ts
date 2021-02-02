@@ -43,11 +43,11 @@ interface IAnswerField {
     ref: string
 }
 
-interface IAnswerChoice {
+export interface IAnswerChoice {
     label: string
 }
 
-interface IAnswerChoices {
+export interface IAnswerChoices {
     labels: string[]
 }
 

@@ -33,8 +33,6 @@ export const ApplicantsList: FC<IProps> = memo((props) => {
         </TouchableOpacity>
     }
 
-    console.log(applicants)
-
     return (
         <View style={styles.container}>
             <Text>Second Screen</Text>
