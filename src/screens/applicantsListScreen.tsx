@@ -1,4 +1,4 @@
-import React, {FC, memo} from 'react';
+import React, {FC, memo, useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -13,6 +13,7 @@ import {
   AppScreens,
 } from '../navigators/stackFlowNavigator';
 import {IFormResponse} from '../interfaces/interfaces';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type ApplicantsListScreenNavigationProps = StackNavigationProp<
   ApplicationStackParamList,
@@ -32,23 +33,60 @@ export const ApplicantsList: FC<IProps> = memo((props) => {
   const {navigation, route} = props;
   const {params} = route;
   const {applicants} = params;
-
   const applicantsCount = ['First', 'Second', 'Third', 'Fourth', 'Fifth'];
+  const [viewedItemTokens, setViewedItemTokens] = useState(['']);
+
+  useEffect(() => {
+    getData();
+  }, [viewedItemTokens]);
+
+  const storeData = async (key: string, value: string) => {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (e) {
+      console.log('Error while storing token');
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const arrayOfValues = await AsyncStorage.getAllKeys();
+      if (arrayOfValues !== null) {
+        setViewedItemTokens(arrayOfValues);
+      }
+    } catch (e) {
+      console.log('Error while reading token');
+    }
+  };
+
+  const onPress = (item: IFormResponse): void => {
+    navigation.navigate(AppScreens.Details, {
+      definitions: item.definition,
+      answers: item.answers,
+    });
+
+    if (viewedItemTokens.indexOf(item.token) > -1) {
+      console.log('already in storage!');
+    } else {
+      storeData(item.token, item.token).then(() => console.log('token saved'));
+    }
+  };
 
   const renderItem = ({item, index}: {item: IFormResponse; index: number}) => {
+    let viewedText;
+    if (viewedItemTokens.indexOf(item.token) > -1) {
+      viewedText = 'viewed';
+    } else {
+      viewedText = 'not viewed';
+    }
+
     return (
-      <TouchableOpacity
-        style={styles.listItem}
-        onPress={() =>
-          navigation.navigate(AppScreens.Details, {
-            definitions: item.definition,
-            answers: item.answers,
-          })
-        }>
+      <TouchableOpacity style={styles.listItem} onPress={() => onPress(item)}>
         <View style={styles.viewStyle}>
           <Text style={styles.fontStyle}>
             {applicantsCount[index]} applicant
           </Text>
+          <Text>{viewedText}</Text>
         </View>
       </TouchableOpacity>
     );

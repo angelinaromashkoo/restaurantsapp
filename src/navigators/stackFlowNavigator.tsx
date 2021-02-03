@@ -1,7 +1,12 @@
 import React, {FC} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {RestaurantsList, ApplicantsList, ApplicantDetails} from '../screens';
-import {ApplicantsParams, DetailsParams} from '../screens';
+import {
+  RestaurantsList,
+  ApplicantsList,
+  ApplicantDetails,
+  ApplicantsParams,
+  DetailsParams,
+} from '../screens';
 
 export enum AppScreens {
   Restaurants = 'Restaurants',
