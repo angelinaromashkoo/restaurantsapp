@@ -1,11 +1,11 @@
 interface IRestaurant {
-    id: string,
-    label: string
+  id: string;
+  label: string;
 }
 
 interface IChoices {
-    id: string,
-    label: string,
+  id: string;
+  label: string;
 }
 
 export interface IFields {
@@ -20,56 +20,56 @@ export interface IFields {
 }
 
 interface IDefinition {
-    id: string,
-    title: string,
-    fields: IFields[]
+  id: string;
+  title: string;
+  fields: IFields[];
 }
 
 interface IAnswer {
-    type: string,
-    text?: string,
-    date?: string,
-    file_url?: string,
-    phone_number?: string,
-    email?: string,
-    choice?: IAnswerChoice,
-    choices?: IAnswerChoices,
-    field: IAnswerField
+  type: string;
+  text?: string;
+  date?: string;
+  file_url?: string;
+  phone_number?: string;
+  email?: string;
+  choice?: IAnswerChoice;
+  choices?: IAnswerChoices;
+  field: IAnswerField;
 }
 
 interface IAnswerField {
-    id: string,
-    type: string,
-    ref: string
+  id: string;
+  type: string;
+  ref: string;
 }
 
 export interface IAnswerChoice {
-    label: string
+  label: string;
 }
 
 export interface IAnswerChoices {
-    labels: string[]
+  labels: string[];
 }
 
 interface IFormResponse {
-    form_id: string,
-    token: string,
-    landed_at: string,
-    submitted_at: string,
-    definition: IDefinition
-    answers: IAnswer[]
+  form_id: string;
+  token: string;
+  landed_at: string;
+  submitted_at: string;
+  definition: IDefinition;
+  answers: IAnswer[];
 }
 
 export interface IApplicantResponse {
-    id: string,
-    event_id: string,
-    event_type: string,
-    restaurant: IRestaurant,
-    form_response: IFormResponse,
+  id: string;
+  event_id: string;
+  event_type: string;
+  restaurant: IRestaurant;
+  form_response: IFormResponse;
 }
 
 export interface IResultData {
-    id: string,
-    label: string,
-    applicants: IFormResponse[],
+  id: string;
+  label: string;
+  applicants: IFormResponse[];
 }
