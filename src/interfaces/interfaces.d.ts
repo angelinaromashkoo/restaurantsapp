@@ -9,14 +9,14 @@ interface IChoices {
 }
 
 export interface IFields {
-    id: string,
-    title: string,
-    type: string,
-    ref: string,
-    properties: Record<string, unknown>,
-    choices?: IChoices[]
-    allow_multiple_selections?: boolean,
-    allow_other_choice?: boolean,
+  id: string;
+  title: string;
+  type: string;
+  ref: string;
+  properties: Record<string, unknown>;
+  choices?: IChoices[];
+  allow_multiple_selections?: boolean;
+  allow_other_choice?: boolean;
 }
 
 interface IDefinition {
